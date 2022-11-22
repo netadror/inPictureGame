@@ -10,6 +10,8 @@ function onInit() {
     gQuests = createQuests()
 }
 function onStart() {
+    var elBg = document.querySelector('.game-bg')
+    elBg.style.display = 'block'
     renderQuest()
 }
 function createQuests() {
@@ -22,17 +24,12 @@ function createQuests() {
     return gQuests
 }
 function renderQuest() {
-    // console.log('gQuests', gQuests)
-    // console.log('gQuests[0]', gQuests[0].opts)
     var elImg = document.querySelector('img')
-    // console.log(elImg)
-    // console.log(gCurrQuestIdx)
     elImg.src = `img/${gCurrQuestIdx}.jpg`
     elImg.style.display = 'block'
 
     var strHTML = ''
     var currQuestion = gQuests[gCurrQuestIdx]
-    // console.log('currQuestion', currQuestion)
     if (gCurrQuestIdx < 3) {
         for (var i = 0; i < currQuestion.opts.length; i++) {
             var currOpts = gQuests[gCurrQuestIdx].opts
@@ -46,27 +43,22 @@ function renderQuest() {
     }
 }
 function checkAnswer(optIdx) {
-    // console.log('gQuests', gQuests)
-    // console.log('optIdx', optIdx)
     var correctAnswer = gQuests[gCurrQuestIdx].correctOptIndex
-    // console.log('correctAnswer', correctAnswer)
     if (optIdx === correctAnswer) {
         console.log('gCurrQuestIdx', gCurrQuestIdx)
         gCurrQuestIdx++
         renderQuest()
 
-    }
-    if (gCurrQuestIdx === 3) {
+    } if (gCurrQuestIdx === 3) {
         greetWinner()
     }
 }
-// console.log('gCurrQuestIdx', gCurrQuestIdx)
 function greetWinner() {
     gCurrQuestIdx = 0
     var strHTML = ''
     strHTML += `<div class="winner">YOU WON!</div>`
     var elGame = document.querySelector('.game')
     elGame.innerHTML = strHTML
-    // var btn = document.querySelector('button')
-    // btn.innerText = 'Play Again'
+    var elbackground = document.querySelector('.game-bg')
+    elbackground.style.backgroundImage = 'url("../img/confetti.gif")'
 }
